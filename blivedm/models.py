@@ -161,6 +161,7 @@ class DanmakuMessage:
 
     @classmethod
     def from_command(cls, info: dict):
+
         if len(info[3]) != 0:
             medal_level = info[3][0]
             medal_name = info[3][1]

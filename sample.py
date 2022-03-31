@@ -6,11 +6,12 @@ import blivedm
 
 # 直播间ID的取值看直播间URL
 TEST_ROOM_IDS = [
-    12235923,
-    14327465,
-    21396545,
-    21449083,
-    23105590,
+    5050
+    # 12235923,
+    # 14327465,
+    # 21396545,
+    # 21449083,
+    # 23105590,
 ]
 
 
@@ -63,22 +64,40 @@ async def run_multi_client():
 class MyHandler(blivedm.BaseHandler):
     # # 演示如何添加自定义回调
     # _CMD_CALLBACK_DICT = blivedm.BaseHandler._CMD_CALLBACK_DICT.copy()
-    #
+    # #
     # # 入场消息回调
     # async def __interact_word_callback(self, client: blivedm.BLiveClient, command: dict):
     #     print(f"[{client.room_id}] INTERACT_WORD: self_type={type(self).__name__}, room_id={client.room_id},"
     #           f" uname={command['data']['uname']}")
     # _CMD_CALLBACK_DICT['INTERACT_WORD'] = __interact_word_callback  # noqa
 
-    async def _on_heartbeat(self, client: blivedm.BLiveClient, message: blivedm.HeartbeatMessage):
-        print(f'[{client.room_id}] 当前人气值：{message.popularity}')
+    # print("显示方式：")
+    #
+    # print('\033[1;36;0m字体变色，但无背景色 \033[0m')
+    # print('\033[1;45m 字体不变色，有背景色 \033[0m')
+    # print('\033[1;35;46m 字体有色，且有背景色 \033[0m')
+    # print('\033[0;35;46m 字体有色，且有背景色 \033[0m')
+    # a = "asdasdasd"
+    # print('\033[0;35m aaa \033[0m')
+    # print('\033[0;36m %s \033[0m'%(a))
+
+
+    # async def _on_heartbeat(self, client: blivedm.BLiveClient, message: blivedm.HeartbeatMessage):
+    #     print(f'[{client.room_id}] 当前人气值：{message.popularity}')
 
     async def _on_danmaku(self, client: blivedm.BLiveClient, message: blivedm.DanmakuMessage):
-        print(f'[{client.room_id}] {message.uname}：{message.msg}')
+        # p = (f'[{client.room_id}] {message.uname}：{message.msg}')
+        p = (f'[弹幕消息] {message.uname}：{message.msg}')
+        # print ('\033[0;36m%s\033[0m'%(p))
+        print (p)
+        # print(f'[{client.room_id}] {message.uname}：{message.msg}')
 
     async def _on_gift(self, client: blivedm.BLiveClient, message: blivedm.GiftMessage):
-        print(f'[{client.room_id}] {message.uname} 赠送{message.gift_name}x{message.num}'
+        # print(f'[礼物消息] {message.uname} 赠送{message.gift_name}x{message.num}'
+        #       f' （{message.coin_type}瓜子x{message.total_coin}）')
+        p = (f'[礼物消息] {message.uname} 赠送{message.gift_name}x{message.num}'
               f' （{message.coin_type}瓜子x{message.total_coin}）')
+        print ('\033[0;35m%s\033[0m'%(p))
 
     async def _on_buy_guard(self, client: blivedm.BLiveClient, message: blivedm.GuardBuyMessage):
         print(f'[{client.room_id}] {message.username} 购买{message.gift_name}')
